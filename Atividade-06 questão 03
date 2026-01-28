@@ -1,0 +1,19 @@
+import requests
+
+def consultar_cep(cep):
+    url = f"https://viacep.com.br/ws/{cep}/json/"
+    resposta = requests.get(url)
+    dados = resposta.json()
+
+    if 'erro' in dados:
+        return "CEP inválido."
+
+    return (
+        f"Logradouro: {dados['logradouro']}\n"
+        f"Bairro: {dados['bairro']}\n"
+        f"Localidade: {dados['localidade']}\n"
+        f"UF: {dados['uf']}"
+    )
+
+cep = input("Digite o CEP: ")
+print(consultar_cep(cep))
